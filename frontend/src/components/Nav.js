@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom"
 
-const Nav = ({ search, setSearch }) => {
+const Nav = ({ search, setSearch, onSearch }) => {
+
+    const handleInputChange = (e) => {
+      setSearch(e.target.value);
+    };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      onSearch(search); 
+    };
+
     return (
         <nav className="Nav">
             <ul>
@@ -14,15 +24,16 @@ const Nav = ({ search, setSearch }) => {
                     <Link to="/about">About</Link>
                 </li>
             </ul>
-            <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
+            <form className="searchForm" onSubmit={handleSubmit}>
                 <label htmlFor="search">Search Item</label>
                 <input
                     id="search"
                     type="text"
-                    placeholder="Search Item"
+                    placeholder="Search Product"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={handleInputChange}
                 />
+                <button type="submit">Search</button>
             </form>
         </nav>
     )

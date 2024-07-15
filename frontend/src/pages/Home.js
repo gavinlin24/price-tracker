@@ -1,10 +1,20 @@
-import { Outlet } from 'react-router-dom'
+import Feed from "../components/Feed"
 
-const Home = () => {
+const Home = ( { products, loading}) => {
   return (
     <main className="Home">
-        <h2>Home page</h2>
-        <Outlet />
+        { loading ? (
+          <p style={{ marginTop: "2rem" }}>
+            Loading...
+          </p>
+        )
+          : products.length ? (
+            <Feed products={products} />
+        ) : (
+            <p style={{ marginTop: "2rem" }}>
+                No products to display.
+            </p>
+        )}
     </main>
   )
 }
