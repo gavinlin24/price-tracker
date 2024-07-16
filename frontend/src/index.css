@@ -179,11 +179,11 @@ body {
 
 .productTitle a {
   text-decoration: none;
+  color: black;
 }
 
 .productInfo {
   margin: 1rem 0;
-  padding-left: 1rem;
 }
 
 .Missing p, .PostPage p, .NewPost p {
