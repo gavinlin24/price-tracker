@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express();
+const router = express.Router();
 const scrape = require('../features/scraper');
 
 router.get('/:search', async (req, res) => {
