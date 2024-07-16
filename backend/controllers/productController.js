@@ -1,27 +1,17 @@
 const Product = require('../models/Product')
-const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 
 //@desc Get all products
 //@route GET /products
 //@access Private
 const getAllProducts = asyncHandler(async (req, res) => {
-    const { productIds } = req.body
+    const products = await Product.find().lean()
 
-    if (!productIds || !Array.isArray(productIds) || !productIds.length) {
-        return res.status(400).json({ message: "All fields are required" })
+    if (!products?.length) {
+        return res.status(400).json({ message: "No products found" })
     }
 
-    try {
-        const products = await Product.find( {'_id': { $in: productIds}} ).lean()
-        if (!products?.length) {
-            return res.status(400).json({ message: "No products found" })
-        }
-        res.json(products)
-    } catch (err) {
-        console.log(err);
-        res.json( { message: `An error occured: ${err.reason}`})
-    }
+    res.json(products)
 })
 
 //@desc Create new product

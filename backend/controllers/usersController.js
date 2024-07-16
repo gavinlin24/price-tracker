@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const Product = require('../models/Product')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
@@ -97,9 +98,29 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.json(reply)
 })
 
+const getAllProducts = asyncHandler(async (req, res) => {
+    const { productIds } = req.body
+
+    if (!productIds || !Array.isArray(productIds) || !productIds.length) {
+        return res.status(400).json({ message: "All fields are required" })
+    }
+
+    try {
+        const products = await Product.find( {'_id': { $in: productIds}} ).lean()
+        if (!products?.length) {
+            return res.status(400).json({ message: "No products found" })
+        }
+        res.json(products)
+    } catch (err) {
+        console.log(err);
+        res.status(500).json( { message: `An error occured: ${err.reason}`})
+    }
+})
+
 module.exports = {
     getAllUsers,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getAllProducts
 }
