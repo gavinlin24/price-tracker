@@ -12,13 +12,16 @@ const getAllProducts = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "All fields are required" })
     }
 
-    const products = await Product.find( {'_id': { $in: productIds}} ).lean()
-
-    if (!products?.length) {
-        return res.status(400).json({ message: "No products found" })
+    try {
+        const products = await Product.find( {'_id': { $in: productIds}} ).lean()
+        if (!products?.length) {
+            return res.status(400).json({ message: "No products found" })
+        }
+        res.json(products)
+    } catch (err) {
+        console.log(err);
+        res.json( { message: `An error occured: ${err.reason}`})
     }
-
-    res.json(products)
 })
 
 //@desc Create new product
@@ -65,7 +68,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 
     const duplicate = await Product.findOne({ link }).lean().exec()
 
-    if (duplicate) {
+    if (duplicate.name === name) {
         return res.status(409).json({ message: 'Duplicate product' })
     }
 
