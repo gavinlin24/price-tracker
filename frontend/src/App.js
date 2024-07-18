@@ -38,13 +38,14 @@ function App() {
       setLoading(true);
       const response = await api.get(`/${product}`);
       setProducts(response.data);
+      console.log(products)
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
       } else {
-        console.log(`Error: ${error.message}`);
+        console.log(`Error: ${error}`);
       }
     } finally {
       setLoading(false);

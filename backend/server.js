@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 const { logger, logEvents } = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
+const cookieParser = require('cookie-parser')
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const connectDB = require('./config/connectDB');
@@ -18,10 +19,11 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
+app.use(cookieParser())
+
+app.use('/auth', require('./routes/authRoutes'))
 app.use('/scrape', require('./routes/scraperRoutes'));
-
 app.use('/users', require('./routes/userRoutes'));
-
 app.use('/product', require('./routes/productRoutes'));
 
 app.all('*', (req, res) => {

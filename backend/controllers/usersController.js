@@ -98,6 +98,9 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.json(reply)
 })
 
+//@desc Get all products a user saved
+//@route GET /users/product
+//@access Private
 const getAllProducts = asyncHandler(async (req, res) => {
     const { productIds } = req.body
 

@@ -5,7 +5,7 @@ const Product = ({ product }) => {
     <article className="product">
         <h2 className="productTitle">
             <a href={product.link}>
-                {product.product}
+                {product.name}
             </a>
         </h2>
         <p className='productInfo'>
