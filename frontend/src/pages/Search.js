@@ -2,7 +2,7 @@ import Feed from "../components/Feed"
 
 const Search = ( { products, isLoading }) => {
   return (
-    <main className="Home">
+    <main className="Search">
         { isLoading ? (
           <p style={{ marginTop: "2rem" }}>
             Loading...

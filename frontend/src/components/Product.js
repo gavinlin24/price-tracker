@@ -11,6 +11,7 @@ const Product = ({ product }) => {
         <p className='productInfo'>
             {product.price}
         </p>
+        <button>Star</button>
     </article>
   )
 }

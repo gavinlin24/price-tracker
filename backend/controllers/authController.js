@@ -52,7 +52,6 @@ const refresh = (req, res) => {
     const cookies = req.cookies
     
     if(!cookies?.jwt) {
-        console.log("this ran");
         return res.status(401).json({ message: "Unauthorized User"})
     }
 
