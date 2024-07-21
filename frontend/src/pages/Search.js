@@ -1,9 +1,9 @@
 import Feed from "../components/Feed"
 
-const Home = ( { products, loading}) => {
+const Search = ( { products, isLoading }) => {
   return (
     <main className="Home">
-        { loading ? (
+        { isLoading ? (
           <p style={{ marginTop: "2rem" }}>
             Loading...
           </p>
@@ -19,4 +19,4 @@ const Home = ( { products, loading}) => {
   )
 }
 
-export default Home
+export default Search
