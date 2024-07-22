@@ -38,7 +38,7 @@ body {
 
 .Header, .Footer {
   width: 100%;
-  background-color: red;
+  background-color: rgb(161, 205, 216);
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -201,7 +201,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(161, 205, 216);
 }
 
 section h1 {
@@ -226,6 +226,7 @@ section label,
 }
 
 input[type="text"],
+input[type="email"],
 input[type="password"],
 .login-button,
 textarea {
@@ -241,12 +242,36 @@ label,
 }
 
 .login-div {
-  margin-top: 3rem;
+  margin-top: 1.5rem;
 }
 
 .signup-text {
   font-size: 18px;
-  margin: 1rem;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: #000;
+  color: #fff;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
 }
 
 @media only screen and (min-width: 610px) {

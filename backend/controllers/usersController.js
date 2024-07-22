@@ -26,10 +26,16 @@ const createUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "All fields are required" })
     }
 
-    const duplicate = await User.findOne({ username }).lean().exec()
+    const dupUser = await User.findOne({ username }).lean().exec()
 
-    if (duplicate) {
+    if (dupUser) {
         return res.status(409).json({ message: "Duplicate username" })
+    }
+
+    const dupEmail = await User.findOne({ email }).lean().exec()
+
+    if (dupEmail) {
+        return res.status(409).json({ message: "Duplicate email" })
     }
 
     const hashedPw = await bcrypt.hash(password, 10)

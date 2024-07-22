@@ -4,6 +4,7 @@ import DashLayout from "./components/DashLayout";
 import RequireAuth from "./components/RequireAuth";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import About from "./pages/About"
 import Search from "./pages/Search";
 import Missing from "./pages/Missing";
@@ -42,6 +43,7 @@ function App() {
         <Route exact path="/" element={<Layout />} >
           <Route exact path="/" element={<Welcome />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<SignUp />} />
           <Route exact path="/about" element={<About />} />
         </Route>
 
