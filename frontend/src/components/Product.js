@@ -1,23 +1,27 @@
 import axios from "../api/axios"
 import useAuth from '../hooks/useAuth'
 
-const PRODUCT_URL = '/product'
+const USER_URL = '/users/products'
 
 const Product = ({ product }) => {
-
+  
   const { auth } = useAuth()
   const handleClick = async () => {
     try {
+      const username = auth.user
+      const productName = product.name
       const price = parseFloat(product.price.replace('$', ''))
-      await axios.post(PRODUCT_URL, 
-        JSON.stringify({username: auth.user, productName: product.name, price, link: product.link},
-          {
-              headers: { 'Content-Type': 'application/json' },
-              withCredentials: true
-          })
+      const link = product.link
+      const productId = await axios.post(
+        USER_URL, 
+        JSON.stringify({username, productName, price, link}),
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        }
       )
     } catch (err) {
-
+      console.log(err)
     }
   }
 
