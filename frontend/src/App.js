@@ -52,11 +52,12 @@ function App() {
           <Route exact path="/dash" element={<DashLayout 
             search={search} 
             setSearch={setSearch} 
-            onSearch={onSearch} />} 
+            onSearch={onSearch} 
+            setProducts={setProducts} />} 
           >
-            <Route exact path="/dash/search" element={<Search 
+            <Route exact path="/dash" element={<Search 
               products={products} 
-              isLoading={isLoading}/>} 
+              isLoading={isLoading} />} 
             />
           </Route>
           {/*End Dash*/}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-const DashNav = ({ search, setSearch, onSearch }) => {
+const DashNav = ({ search, setSearch, onSearch, setProducts }) => {
 
     const handleInputChange = (e) => {
       console.log(e.target.value)
@@ -12,17 +12,22 @@ const DashNav = ({ search, setSearch, onSearch }) => {
       onSearch(search); 
     };
 
+    const handleLogout = (e) => {
+        setProducts('')
+        setSearch('')
+    }
+
     return (
         <nav className="Nav">
             <ul>
                 <li>
-                    <Link to="/dash/search">Search</Link>
+                    <Link to="/dash">Search</Link>
                 </li>
                 <li>
-                    <Link>Starred</Link>
+                    <Link>Tracked</Link>
                 </li>
                 <li>
-                    <Link>Logout</Link>
+                    <Link to="/" onClick={handleLogout}>Logout</Link>
                 </li>
             </ul>
             <form className="searchForm" onSubmit={handleSubmit}>

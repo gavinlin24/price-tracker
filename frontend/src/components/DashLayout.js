@@ -1,10 +1,14 @@
 import DashNav from "./DashNav"
 import { Outlet } from "react-router-dom"
 
-const DashLayout = ({ search, setSearch, onSearch }) => {
+const DashLayout = ({ search, setSearch, onSearch, setProducts }) => {
   return (
     <>
-      <DashNav search={search} setSearch={setSearch} onSearch={onSearch} />
+      <DashNav 
+        search={search} 
+        setSearch={setSearch} 
+        onSearch={onSearch} 
+        setProducts={setProducts} />
       <Outlet />
     </>
   )

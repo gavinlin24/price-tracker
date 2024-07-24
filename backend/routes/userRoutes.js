@@ -4,6 +4,7 @@ const usersController = require('../controllers/usersController')
 
 router.route('/products')
     .get(usersController.getAllProducts)
+    .post(usersController.createAndAddProduct)
 
 router.route('/')
     .get(usersController.getAllUsers)

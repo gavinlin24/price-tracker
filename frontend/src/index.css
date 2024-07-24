@@ -92,7 +92,8 @@ body {
   outline: none;
 }
 
-.searchForm button {
+.searchForm button,
+.product button {
   font-family: 'Open Sans', sans-serif;
   width: 12%;
   min-height: 48px;
@@ -102,8 +103,10 @@ body {
   outline: none;
 }
 
-.searchForm button:hover {
+.searchForm button:hover,
+.product button:hover {
   cursor: pointer;
+  color: darkgray;
 }
 
 .searchForm label {
@@ -184,6 +187,10 @@ body {
 .productTitle a {
   text-decoration: none;
   color: black;
+}
+
+.productTitle a:hover {
+  color: darkgray;
 }
 
 .productInfo {

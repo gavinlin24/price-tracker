@@ -53,7 +53,7 @@ const createUser = asyncHandler(async (req, res) => {
 //@route PATCH /users
 //@access Private
 const updateUser = asyncHandler(async (req, res) => {
-    const { id, username, email, password} = req.body
+    const { id, username, email, password, productIds } = req.body
 
     if(!id || !username) {
         return res.status(400).json({ message: "All fields are required" })
@@ -72,10 +72,17 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     user.username = username
-    user.email = email
+
+    if (email) {
+        user.email = email
+    }
     
     if (password) {
         user.password = await bcrypt.hash(password, 10)
+    }
+
+    if (productIds && Array.isArray(productIds)) {
+        user.productIds = productIds
     }
 
     const updatedUser = await user.save()
@@ -105,17 +112,23 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 //@desc Get all products a user saved
-//@route GET /users/product
+//@route GET /users/products
 //@access Private
 const getAllProducts = asyncHandler(async (req, res) => {
-    const { productIds } = req.body
+    const { username } = req.body
+    const user = await User.findOne({ username }).exec()
 
-    if (!productIds || !Array.isArray(productIds) || !productIds.length) {
-        return res.status(400).json({ message: "All fields are required" })
+    if(!user) {
+        return res.status(401).json({ message: "Unauthorized User"})
+    }
+    const productIds = user.productIds;
+
+    if (!productIds || !productIds.length) {
+        return res.status(400).json({ message: "User has no tracked Products" })
     }
 
     try {
-        const products = await Product.find( {'_id': { $in: productIds}} ).lean()
+        const products = await Product.find({ '_id': { $in: productIds } });
         if (!products?.length) {
             return res.status(400).json({ message: "No products found" })
         }
@@ -126,10 +139,35 @@ const getAllProducts = asyncHandler(async (req, res) => {
     }
 })
 
+//@desc Create a product and add to User's list
+//@route POST /users/products
+//@access Private
+const createAndAddProduct = asyncHandler(async (req, res) => {
+    const { username, productName, price, link } = req.body
+
+    if(!username || !productName || !price || !link) {
+        return res.status(400).json({ message: "All fields are required" })
+    }
+
+    const user = await User.findOne({ username }).exec()
+
+    if(!user) {
+        return res.status(400).json({ message: "User not found" })
+    }
+
+    const productObj = { "name": productName, price, link }
+    const product = await Product.create(productObj)
+    user.productIds = [...user.productIds, product._id]
+    await user.save()
+
+    res.json({ productId: product._id })
+})
+
 module.exports = {
     getAllUsers,
     createUser,
     updateUser,
     deleteUser,
-    getAllProducts
+    getAllProducts,
+    createAndAddProduct
 }
