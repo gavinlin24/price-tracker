@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const scrape = require('../features/scraper');
+const scrapeController = require('../controllers/scrapeController')
 
-router.get('/:search', async (req, res) => {
-    const results = await scrape(req.params.search);
-    res.json(results);
-});
+router.route('/update')
+    .get(scrapeController.updatePrice)
+
+router.route('/search/:search')
+    .get(scrapeController.scrapeAll)
 
 module.exports = router;
 

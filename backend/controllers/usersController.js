@@ -120,7 +120,6 @@ const getAllProducts = asyncHandler(async (req, res) => {
     const user = await User.findOne({ username }).exec()
 
     if(!user) {
-        console.log('this')
         return res.status(401).json({ message: "Unauthorized User"})
     }
     const productIds = user.productIds;

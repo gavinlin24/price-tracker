@@ -24,7 +24,7 @@ function App() {
   const onSearch = async (product) => {
     try {
       setIsLoading(true);
-      const response = await api.get(`/scrape/${product}`);
+      const response = await api.get(`/scrape/search/${product}`);
       setProducts(response.data);
       console.log(products)
     } catch (error) {
