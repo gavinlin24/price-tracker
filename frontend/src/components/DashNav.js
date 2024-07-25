@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-const DashNav = ({ search, setSearch, onSearch, fetchTracked, setProducts }) => {
+const DashNav = ({ search, setSearch, onSearch, fetchTracked, setProducts, setTrackedProducts }) => {
 
     const handleInputChange = (e) => {
       console.log(e.target.value)
@@ -13,7 +13,8 @@ const DashNav = ({ search, setSearch, onSearch, fetchTracked, setProducts }) => 
     };
 
     const handleLogout = (e) => {
-        setProducts('')
+        setProducts([])
+        setTrackedProducts([])
         setSearch('')
     }
 

@@ -80,6 +80,7 @@ function App() {
             onSearch={onSearch} 
             fetchTracked={fetchTracked} 
             setProducts={setProducts} 
+            setTrackedProducts={setTrackedProducts}
             />} 
           >
             <Route exact path="/dash" element={<Search 
