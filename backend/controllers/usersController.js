@@ -116,9 +116,11 @@ const deleteUser = asyncHandler(async (req, res) => {
 //@access Private
 const getAllProducts = asyncHandler(async (req, res) => {
     const { username } = req.body
+    console.log(username)
     const user = await User.findOne({ username }).exec()
 
     if(!user) {
+        console.log('this')
         return res.status(401).json({ message: "Unauthorized User"})
     }
     const productIds = user.productIds;
@@ -128,10 +130,11 @@ const getAllProducts = asyncHandler(async (req, res) => {
     }
 
     try {
-        const products = await Product.find({ '_id': { $in: productIds } });
+        const products = await Product.find({ '_id': { $in: productIds } }).lean();
         if (!products?.length) {
             return res.status(400).json({ message: "No products found" })
         }
+        console.log(products)
         res.json(products)
     } catch (err) {
         console.log(err);

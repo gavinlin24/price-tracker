@@ -2,10 +2,12 @@ const express = require('express')
 const router = express.Router()
 const usersController = require('../controllers/usersController')
 
-router.route('/products')
-    .get(usersController.getAllProducts)
+router.route('/add')
     .post(usersController.createAndAddProduct)
 
+router.route('/display')
+    .post(usersController.getAllProducts)
+    
 router.route('/')
     .get(usersController.getAllUsers)
     .post(usersController.createUser)

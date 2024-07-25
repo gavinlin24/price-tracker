@@ -1,10 +1,10 @@
 import axios from "../api/axios"
 import useAuth from '../hooks/useAuth'
 
-const USER_URL = '/users/products'
+const USER_URL = '/users/add'
 
 const Product = ({ product }) => {
-  
+
   const { auth } = useAuth()
   const handleClick = async () => {
     try {

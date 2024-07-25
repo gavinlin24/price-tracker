@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-const DashNav = ({ search, setSearch, onSearch, setProducts }) => {
+const DashNav = ({ search, setSearch, onSearch, fetchTracked, setProducts }) => {
 
     const handleInputChange = (e) => {
       console.log(e.target.value)
@@ -8,13 +8,17 @@ const DashNav = ({ search, setSearch, onSearch, setProducts }) => {
     };
   
     const handleSubmit = (e) => {
-      e.preventDefault();
-      onSearch(search); 
+        e.preventDefault();
+        onSearch(search); 
     };
 
     const handleLogout = (e) => {
         setProducts('')
         setSearch('')
+    }
+
+    const handleTracked = (e) => {
+        fetchTracked()
     }
 
     return (
@@ -24,7 +28,7 @@ const DashNav = ({ search, setSearch, onSearch, setProducts }) => {
                     <Link to="/dash">Search</Link>
                 </li>
                 <li>
-                    <Link>Tracked</Link>
+                    <Link to="/dash/tracked" onClick={handleTracked}>Tracked</Link>
                 </li>
                 <li>
                     <Link to="/" onClick={handleLogout}>Logout</Link>

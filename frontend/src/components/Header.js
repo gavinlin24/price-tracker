@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const Header = ({title}) => {
+const Header = ({ title }) => {
   return (
     <header className="Header">
         <Link to="/">
