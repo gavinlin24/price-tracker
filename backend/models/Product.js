@@ -5,7 +5,11 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    price: {
+    prevPrice: {
+        type: Number,
+        required: true
+    },
+    currPrice: {
         type: Number,
         required: true
     },

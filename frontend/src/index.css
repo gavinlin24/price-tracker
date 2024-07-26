@@ -157,7 +157,8 @@ body {
   background-color: #fff;
 }
 
-.Welcome h2 {
+.Welcome h2, 
+.About h2 {
   margin-bottom: 1rem;
 }
 

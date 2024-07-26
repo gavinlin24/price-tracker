@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const DashNav = ({ search, setSearch, onSearch, fetchTracked, setProducts, setTrackedProducts }) => {
+    const navigate = useNavigate()
 
     const handleInputChange = (e) => {
       console.log(e.target.value)
@@ -9,6 +11,7 @@ const DashNav = ({ search, setSearch, onSearch, fetchTracked, setProducts, setTr
   
     const handleSubmit = (e) => {
         e.preventDefault();
+        navigate('/dash')
         onSearch(search); 
     };
 

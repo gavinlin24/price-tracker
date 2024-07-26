@@ -1,7 +1,7 @@
 import axios from "../api/axios"
 import useAuth from '../hooks/useAuth'
 
-const USER_URL = '/users/add'
+const USER_URL = '/users/edit'
 
 const Product = ({ product }) => {
 
@@ -12,9 +12,9 @@ const Product = ({ product }) => {
       const productName = product.name
       const price = parseFloat(product.price.replace('$', ''))
       const link = product.link
-      const productId = await axios.post(
+      await axios.post(
         USER_URL, 
-        JSON.stringify({username, productName, price, link}),
+        JSON.stringify({username, productName, prevPrice: price, currPrice: price, link}),
         {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true

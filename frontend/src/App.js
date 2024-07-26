@@ -11,7 +11,7 @@ import Tracked from "./pages/Tracked";
 import Missing from "./pages/Missing";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import api from "./api/axios"
+import axios from "./api/axios"
 import useAuth from "./hooks/useAuth";
 
 function App() {
@@ -24,9 +24,8 @@ function App() {
   const onSearch = async (product) => {
     try {
       setIsLoading(true);
-      const response = await api.get(`/scrape/search/${product}`);
+      const response = await axios.get(`/scrape/search/${product}`);
       setProducts(response.data);
-      console.log(products)
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);
@@ -43,7 +42,7 @@ function App() {
  const fetchTracked = async () => {
   try {
     setIsLoading(true)
-    const response = await api.post(
+    const response = await axios.post(
       "/users/display",
       JSON.stringify({username: auth.user}),
       {
@@ -54,7 +53,14 @@ function App() {
     setTrackedProducts(response.data)
     console.log(trackedProducts)
   } catch (err) {
-    console.log(err)
+    if (!err?.response) {
+      console.log('No Server Response')
+    } else if (err.response?.status === 400) {
+      console.log('No products to be tracked')
+      setTrackedProducts([])
+    } else {
+      console.log('Fetch failed')
+    }
   } finally {
     setIsLoading(false)
   }
@@ -89,6 +95,7 @@ function App() {
             />
             <Route exact path="/dash/tracked" element={<Tracked 
               trackedProducts={trackedProducts} 
+              fetchTracked={fetchTracked} 
               isLoading={isLoading} 
               />} 
             />

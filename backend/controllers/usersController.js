@@ -112,7 +112,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 //@desc Get all products a user saved
-//@route GET /users/products
+//@route POST /users/display
 //@access Private
 const getAllProducts = asyncHandler(async (req, res) => {
     const { username } = req.body
@@ -142,12 +142,12 @@ const getAllProducts = asyncHandler(async (req, res) => {
 })
 
 //@desc Create a product and add to User's list
-//@route POST /users/products
+//@route POST /users/add
 //@access Private
 const createAndAddProduct = asyncHandler(async (req, res) => {
-    const { username, productName, price, link } = req.body
+    const { username, productName, prevPrice, currPrice, link } = req.body
 
-    if(!username || !productName || !price || !link) {
+    if(!username || !productName || !prevPrice || !currPrice || !link) {
         return res.status(400).json({ message: "All fields are required" })
     }
 
@@ -157,12 +157,39 @@ const createAndAddProduct = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "User not found" })
     }
 
-    const productObj = { "name": productName, price, link }
+    const productObj = { "name": productName, prevPrice, currPrice, link }
     const product = await Product.create(productObj)
     user.productIds = [...user.productIds, product._id]
     await user.save()
 
     res.json({ productId: product._id })
+})
+
+//@desc Remove product from db and user list
+//@route PATCH /users/add
+//@access Private
+const removeProduct = asyncHandler(async (req, res) => {
+    const { username, productId } = req.body
+
+    console.log(productId)
+
+    if (!username || !productId) {
+        return res.status(400).json({ message: "All fields are required" })
+    }
+
+    const result = await Product.findByIdAndDelete(productId)
+
+    if (!result) {
+        return res.status(400).json({ message: "Product not found" }) 
+    }
+
+    const user = await User.findOne({username}).exec()
+    const index = user.productIds.indexOf(productId)
+    user.productIds.splice(index, 1)
+    await user.save()
+    const productIds = user.productIds
+    res.send(productIds)
+
 })
 
 module.exports = {
@@ -171,5 +198,6 @@ module.exports = {
     updateUser,
     deleteUser,
     getAllProducts,
-    createAndAddProduct
+    createAndAddProduct,
+    removeProduct
 }

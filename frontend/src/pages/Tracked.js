@@ -1,6 +1,6 @@
 import TrackedFeed from "../components/TrackedFeed"
 
-const Tracked = ({ trackedProducts, isLoading }) => {
+const Tracked = ({ trackedProducts, fetchTracked, isLoading }) => {
 
     return (
         <main className="Search">
@@ -10,10 +10,13 @@ const Tracked = ({ trackedProducts, isLoading }) => {
               </p>
             )
               : trackedProducts.length ? (
-                <TrackedFeed trackedProducts={trackedProducts} />
+                <TrackedFeed 
+                    trackedProducts={trackedProducts} 
+                    fetchTracked={fetchTracked}  
+                />
             ) : (
                 <p style={{ marginTop: "2rem" }}>
-                    No products to display.
+                    No products tracked.
                 </p>
             )}
         </main>
