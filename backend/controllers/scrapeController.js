@@ -7,8 +7,9 @@ const scrapeAll = async (req, res) => {
 
 const updatePrice = async (req, res) => {
     const { link } = req.body
+    console.log(link)
     const newPrice = await scraper.updatePrice(link);
-    res.json(newPrice);
+    res.json(parseFloat(newPrice.replace('$', '')));
 }
 
 module.exports = {

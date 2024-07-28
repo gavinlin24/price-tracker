@@ -16,7 +16,10 @@ const Product = ({ product }) => {
         USER_URL, 
         JSON.stringify({username, productName, prevPrice: price, currPrice: price, link}),
         {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Authorization': `Bearer ${auth.accessToken}`,
+            'Content-Type': 'application/json' 
+          },
           withCredentials: true
         }
       )

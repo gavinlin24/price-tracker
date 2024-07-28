@@ -43,10 +43,10 @@ const createProduct = asyncHandler(async (req, res) => {
 //@desc Update a product
 //@route PATCH /product
 //@access Private
-const updateProduct = asyncHandler(async (req, res) => {
-    const { id, name, price, link } = req.body
+const updateProductPrice = asyncHandler(async (req, res) => {
+    const { id, price } = req.body
 
-    if (!id || !name || !price || !link) {
+    if (!id || !price) {
         return res.status(400).json({ message: "All fields are required" })
     }
 
@@ -56,15 +56,8 @@ const updateProduct = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: "Product not found" })
     }
 
-    const duplicate = await Product.findOne({ link }).lean().exec()
-
-    if (duplicate.name === name) {
-        return res.status(409).json({ message: 'Duplicate product' })
-    }
-
-    product.name = name
-    product.price = price
-    product.link = link
+    product.prevPrice = product.currPrice
+    product.currPrice = price
 
     const updatedProduct = await product.save()
     res.json({ message: `${updatedProduct.name} updated`})
@@ -95,6 +88,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
 module.exports = {
     getAllProducts,
     createProduct,
-    updateProduct,
+    updateProductPrice,
     deleteProduct
 }

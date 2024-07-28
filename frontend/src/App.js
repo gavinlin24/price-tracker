@@ -24,7 +24,12 @@ function App() {
   const onSearch = async (product) => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`/scrape/search/${product}`);
+      const response = await axios.get(
+        `/scrape/search/${product}`,
+        {
+          headers: {'Authorization': `Bearer ${auth.accessToken}`}
+        }
+      );
       setProducts(response.data);
     } catch (error) {
       if (error.response) {
@@ -46,7 +51,10 @@ function App() {
       "/users/display",
       JSON.stringify({username: auth.user}),
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Authorization': `Bearer ${auth.accessToken}`, 
+          'Content-Type': 'application/json' 
+        },
         withCredentials: true
       }
     )
