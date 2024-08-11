@@ -106,7 +106,6 @@ const deleteUser = asyncHandler(async (req, res) => {
     }
 
     const result = await user.deleteOne()
-    console.log(result._id)
     const reply = `User ${user.username} with ID ${user._id} deleted`
     res.json(reply)
 })
@@ -116,7 +115,6 @@ const deleteUser = asyncHandler(async (req, res) => {
 //@access Private
 const getAllProducts = asyncHandler(async (req, res) => {
     const { username } = req.body
-    console.log(username)
     const user = await User.findOne({ username }).exec()
 
     if(!user) {
@@ -133,10 +131,8 @@ const getAllProducts = asyncHandler(async (req, res) => {
         if (!products?.length) {
             return res.status(400).json({ message: "No products found" })
         }
-        console.log(products)
         res.json(products)
     } catch (err) {
-        console.log(err);
         res.status(500).json( { message: `An error occured: ${err.reason}`})
     }
 })
@@ -170,8 +166,6 @@ const createAndAddProduct = asyncHandler(async (req, res) => {
 //@access Private
 const removeProduct = asyncHandler(async (req, res) => {
     const { username, productId } = req.body
-
-    console.log(productId)
 
     if (!username || !productId) {
         return res.status(400).json({ message: "All fields are required" })

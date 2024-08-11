@@ -80,7 +80,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
     }
 
     const result = await product.deleteOne()
-    console.log(result._id)
     const reply = `Product ${product.name} with ID ${product._id} deleted`
     res.json(reply)
 })

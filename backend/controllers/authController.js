@@ -66,7 +66,6 @@ const refresh = (req, res) => {
             const user = await User.findOne({ username: decoded.username })
 
             if(!user) {
-                console.log("second this ran");
                 return res.status(401).json({ message: "Unauthorized User"})
             }
 
